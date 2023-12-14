@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Josefin Sans";
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-image: url("./resources/bg-desktop-light.jpg");
+  background-size: 100% 200px;
+  background-repeat: no-repeat;
+  height: 100vh;
+
+  background-color: sl(236, 33%, 92%);
+
+  display: flex;
+  justify-content: center;
+}
