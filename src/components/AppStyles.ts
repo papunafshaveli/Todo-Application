@@ -91,10 +91,12 @@ export const StyledFooter = styled.footer`
 
   margin-top: 4px;
 
-  display: flex;
-  justify-content: space-between;
-
   padding: 15px;
 
   background-color: hsl(0, 0%, 98%);
+
+  button {
+    width: 100%;
+    padding: 5px;
+  }
 `;
