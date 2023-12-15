@@ -3,26 +3,27 @@ import "../App.css";
 import {
   AppContainer,
   CheckTodo,
+  StyledFooter,
   StyledForm,
   TodoDiv,
   TodoInfo,
   TodosContainer,
 } from "./AppStyles";
 import Header from "./Header/Header";
-import styled from "styled-components";
 
 function App() {
   const [inputText, setInputText] = useState("");
   const [todosArr, setTodosArr] = useState<string[] | []>([]);
 
+  const [completedTodos, setCompletedTodos] = useState<boolean[]>([]);
+
   const handleAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputText.length) {
       setTodosArr([...todosArr, inputText]);
+      setCompletedTodos([...completedTodos, false]);
       setInputText("");
     }
-
-    console.log("handleAdd");
   };
 
   const handleDelete = (index: number) => {
@@ -43,7 +44,14 @@ function App() {
       <TodosContainer>
         {todosArr.map((todo, index) => (
           <TodoDiv key={index}>
-            <CheckTodo>
+            <CheckTodo
+              completed={completedTodos[index]}
+              onClick={() => {
+                const updatedCompletedTodos = [...completedTodos];
+                updatedCompletedTodos[index] = !completedTodos[index];
+                setCompletedTodos(updatedCompletedTodos);
+              }}
+            >
               <div>
                 <img src="./resources/icon-check.svg" alt="" />
               </div>
@@ -73,16 +81,3 @@ function App() {
 }
 
 export default App;
-
-const StyledFooter = styled.footer`
-  border-radius: 5px;
-
-  margin-top: 4px;
-
-  display: flex;
-  justify-content: space-between;
-
-  padding: 15px;
-
-  background-color: hsl(0, 0%, 98%);
-`;

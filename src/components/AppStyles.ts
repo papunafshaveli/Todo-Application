@@ -48,7 +48,7 @@ export const TodoDiv = styled.div`
   }
 `;
 
-export const CheckTodo = styled.div`
+export const CheckTodo = styled.div<{ completed: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,12 +59,17 @@ export const CheckTodo = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+    background: ${({ completed }) =>
+      completed
+        ? "linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%))"
+        : "white"};
     border-radius: 50%;
   }
 
   p {
     font-size: 1.2rem;
+    text-decoration: ${({ completed }) =>
+      completed ? "line-through" : "none"};
   }
 `;
 
@@ -72,6 +77,19 @@ export const TodoInfo = styled.div`
   border-radius: 5px;
 
   margin-top: 1px;
+
+  display: flex;
+  justify-content: space-between;
+
+  padding: 15px;
+
+  background-color: hsl(0, 0%, 98%);
+`;
+
+export const StyledFooter = styled.footer`
+  border-radius: 5px;
+
+  margin-top: 4px;
 
   display: flex;
   justify-content: space-between;
