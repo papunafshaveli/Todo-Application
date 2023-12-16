@@ -14,11 +14,9 @@ import Header from "./Header/Header";
 function App() {
   const [inputText, setInputText] = useState("");
   const [todosArr, setTodosArr] = useState<
-    { text: string; completed: boolean }[]
+    { text: string; completed: boolean }[] | []
   >([]);
 
-  const [showCompleted, setShowCompleted] = useState(false);
-  console.log(todosArr);
   const handleAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputText.length) {
@@ -27,20 +25,19 @@ function App() {
     }
   };
 
+  const handleOutlineComplated = (index: number) => {
+    setTodosArr((prevTodos) =>
+      prevTodos.map((todo, i) =>
+        i === index ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
   const handleDelete = (index: number) => {
     setTodosArr(todosArr.filter((_, i) => i !== index));
   };
 
-  const handleComplete = (index: number) => {
-    setTodosArr((prevTodos) => {
-      const newTodosArr = [...prevTodos];
-      newTodosArr[index] = {
-        ...newTodosArr[index],
-        completed: !newTodosArr[index].completed,
-      };
-      return newTodosArr;
-    });
-  };
+  const handleFilterCompletedTodos = () => {setTodosArr(todosArr.filter((todo) => todo.completed !== false))};
 
   return (
     <AppContainer>
@@ -54,35 +51,31 @@ function App() {
         />
       </StyledForm>
       <TodosContainer>
-        {todosArr
-          .filter((todo) => (showCompleted ? todo.completed : true))
-          .map((todo, index) => (
-            <TodoDiv key={index}>
-              <CheckTodo
-                completed={todo.completed}
-                onClick={() => handleComplete(index)}
-              >
-                <div>
-                  <img src="./resources/icon-check.svg" alt="" />
-                </div>
-                <p>{todo.text}</p>
-              </CheckTodo>
-              <button
-                onClick={() => {
-                  handleDelete(index);
-                }}
-              >
-                <img src="./resources/icon-cross.svg" alt="" />
-              </button>
-            </TodoDiv>
-          ))}
+        {todosArr.map((todo, index) => (
+          <TodoDiv key={index}>
+            <CheckTodo
+              completed={todo.completed}
+              onClick={() => handleOutlineComplated(index)}
+            >
+              <div>
+                <img src="./resources/icon-check.svg" alt="" />
+              </div>
+              <p>{todo.text}</p>
+            </CheckTodo>
+            <button onClick={() => handleDelete(index)}>
+              <img src="./resources/icon-cross.svg" alt="" />
+            </button>
+          </TodoDiv>
+        ))}
       </TodosContainer>
       <TodoInfo>
         <span>5 items left</span>
         <span>Clear complated</span>
       </TodoInfo>
       <StyledFooter>
-        <button onClick={() => setShowCompleted(true)}>Completed</button>
+        <button>All</button>
+        <button>Active</button>
+        <button onClick={handleFilterCompletedTodos}>Completed</button>
       </StyledFooter>
     </AppContainer>
   );
