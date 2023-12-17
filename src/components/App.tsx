@@ -21,6 +21,8 @@ function App() {
     { text: string; completed: boolean }[] | []
   >([]);
 
+  const [themes, setThemes] = useState(true);
+
   useEffect(() => {
     setFilteredTodos(todosArr);
   }, [todosArr]);
@@ -57,9 +59,19 @@ function App() {
     setFilteredTodos(todosArr);
   };
 
+  useEffect(() => {
+    document.body.style.backgroundImage = themes
+      ? 'url("./resources/bg-desktop-light.jpg")'
+      : 'url("./resources/bg-desktop-dark.jpg")';
+
+    document.body.style.backgroundColor = themes
+      ? "hsl(236, 33%, 92%)"
+      : "hsl(235, 52.94117647058824%, 13.333333333333334%)";
+  }, [themes]);
+
   return (
     <AppContainer>
-      <Header />
+      <Header themes={themes} setThemes={setThemes} />
       <StyledForm onSubmit={(e) => handleAddTodo(e)}>
         <input
           type="text"
@@ -92,7 +104,7 @@ function App() {
           Clear complated
         </span>
       </TodoInfo>
-      <StyledFooter>
+      <StyledFooter themes={themes}>
         <button onClick={handleFilterAllTodos}>All</button>
         <button onClick={handleFilterActiveTodos}>Active</button>
         <button onClick={handleFilterCompletedTodos}>Completed</button>

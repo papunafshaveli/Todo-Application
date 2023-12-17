@@ -12,7 +12,6 @@ html {
 }
 
 body {
-  background-image: url("./resources/bg-desktop-light.jpg");
   background-size: 100% 200px;
   background-repeat: no-repeat;
   height: 100vh;

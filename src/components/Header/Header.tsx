@@ -1,11 +1,24 @@
 import { HeaderContainer } from "./styles";
 
-const Header = () => {
+type HeaderPropsTypes = {
+  themes: boolean;
+  setThemes: (themes: boolean) => void;
+};
+
+const Header = ({ setThemes, themes }: HeaderPropsTypes) => {
   return (
     <HeaderContainer>
       <div>
         <h1>T O D O</h1>
-        <img src="./resources/icon-moon.svg" alt="" />
+        <img
+          src={
+            themes ? "./resources/icon-moon.svg" : "./resources/icon-sun.svg"
+          }
+          alt=""
+          onClick={() => {
+            setThemes(!themes);
+          }}
+        />
       </div>
     </HeaderContainer>
   );

@@ -90,7 +90,7 @@ export const TodoInfo = styled.div`
   }
 `;
 
-export const StyledFooter = styled.footer`
+export const StyledFooter = styled.footer<{ themes: boolean }>`
   display: flex;
   gap: 4px;
 
@@ -100,7 +100,10 @@ export const StyledFooter = styled.footer`
 
   padding: 15px;
 
-  background-color: hsl(0, 0%, 98%);
+  ${({ themes }) =>
+    themes
+      ? "background-color: hsl(236, 33%, 92%);"
+      : "background-color: hsl(235, 52.94117647058824%, 13.333333333333334%)"};
 
   button {
     width: 100%;
