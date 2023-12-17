@@ -84,9 +84,16 @@ export const TodoInfo = styled.div`
   padding: 15px;
 
   background-color: hsl(0, 0%, 98%);
+
+  .clear {
+    cursor: pointer;
+  }
 `;
 
 export const StyledFooter = styled.footer`
+  display: flex;
+  gap: 4px;
+
   border-radius: 5px;
 
   margin-top: 4px;
@@ -98,5 +105,6 @@ export const StyledFooter = styled.footer`
   button {
     width: 100%;
     padding: 5px;
+    cursor: pointer;
   }
 `;

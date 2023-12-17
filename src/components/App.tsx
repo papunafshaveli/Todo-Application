@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../App.css";
 import {
   AppContainer,
@@ -17,12 +17,24 @@ function App() {
     { text: string; completed: boolean }[] | []
   >([]);
 
+  const [filteredTodos, setFilteredTodos] = useState<
+    { text: string; completed: boolean }[] | []
+  >([]);
+
+  useEffect(() => {
+    setFilteredTodos(todosArr);
+  }, [todosArr]);
+
   const handleAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputText.length) {
       setTodosArr([...todosArr, { text: inputText, completed: false }]);
       setInputText("");
     }
+  };
+
+  const handleDelete = (index: number) => {
+    setTodosArr(todosArr.filter((_, i) => i !== index));
   };
 
   const handleOutlineComplated = (index: number) => {
@@ -33,11 +45,17 @@ function App() {
     );
   };
 
-  const handleDelete = (index: number) => {
-    setTodosArr(todosArr.filter((_, i) => i !== index));
+  const handleFilterCompletedTodos = () => {
+    setFilteredTodos(todosArr.filter((todo) => todo.completed !== false));
   };
 
-  const handleFilterCompletedTodos = () => {setTodosArr(todosArr.filter((todo) => todo.completed !== false))};
+  const handleFilterActiveTodos = () => {
+    setFilteredTodos(todosArr.filter((todo) => todo.completed !== true));
+  };
+
+  const handleFilterAllTodos = () => {
+    setFilteredTodos(todosArr);
+  };
 
   return (
     <AppContainer>
@@ -51,7 +69,7 @@ function App() {
         />
       </StyledForm>
       <TodosContainer>
-        {todosArr.map((todo, index) => (
+        {filteredTodos.map((todo, index) => (
           <TodoDiv key={index}>
             <CheckTodo
               completed={todo.completed}
@@ -69,12 +87,14 @@ function App() {
         ))}
       </TodosContainer>
       <TodoInfo>
-        <span>5 items left</span>
-        <span>Clear complated</span>
+        <span>{filteredTodos.length} items left</span>
+        <span className="clear" onClick={handleFilterActiveTodos}>
+          Clear complated
+        </span>
       </TodoInfo>
       <StyledFooter>
-        <button>All</button>
-        <button>Active</button>
+        <button onClick={handleFilterAllTodos}>All</button>
+        <button onClick={handleFilterActiveTodos}>Active</button>
         <button onClick={handleFilterCompletedTodos}>Completed</button>
       </StyledFooter>
     </AppContainer>
