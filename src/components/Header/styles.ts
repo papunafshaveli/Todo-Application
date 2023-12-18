@@ -16,5 +16,6 @@ export const HeaderContainer = styled.header`
 
   img {
     width: 26px;
+    cursor: pointer;
   }
 `;

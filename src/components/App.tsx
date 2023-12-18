@@ -105,9 +105,9 @@ function App() {
         {inputText.length > 30 && maxLengthMessage}
       </p>
       <TodoInfo>
-        <span>{filteredTodos.length} items left</span>
-        <span className="clear" onClick={handleFilterActiveTodos}>
-          Clear complated
+        <span>All items - {filteredTodos.length}</span>
+        <span className="clear" onClick={() => setTodosArr([])}>
+          Clear All
         </span>
       </TodoInfo>
       <StyledFooter themes={themes}>

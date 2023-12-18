@@ -2,15 +2,19 @@ import styled from "styled-components";
 
 export const AppContainer = styled.div`
   min-width: 375px;
+  max-width: 768px;
   padding: 3rem;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
 
+  margin: 0 auto;
+
   .maxLengthMessage {
     color: red;
-    padding-left: 15px;
+    padding: 10px 0 4px 15px;
+    font-size: 1.3rem;
   }
 `;
 
