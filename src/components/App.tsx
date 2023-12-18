@@ -10,7 +10,7 @@ import {
   TodosContainer,
 } from "./AppStyles";
 import Header from "./Header/Header";
-import useLocalStorage from "./hooks/UseLocalStorage";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   const [inputText, setInputText] = useState("");
