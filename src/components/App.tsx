@@ -29,7 +29,7 @@ function App() {
 
   const handleAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (inputText.length) {
+    if (inputText.length && inputText.length < 40) {
       setTodosArr([...todosArr, { text: inputText, completed: false }]);
       setInputText("");
     }
@@ -38,6 +38,8 @@ function App() {
   const handleDelete = (index: number) => {
     setTodosArr(todosArr.filter((_, i) => i !== index));
   };
+
+  const maxLengthMessage = "Please, add less than 40 characters";
 
   const handleOutlineComplated = (index: number) => {
     setTodosArr((prevTodos) =>
@@ -98,6 +100,9 @@ function App() {
           </TodoDiv>
         ))}
       </TodosContainer>
+      <p className="maxLengthMessage">
+        {inputText.length > 30 && maxLengthMessage}
+      </p>
       <TodoInfo>
         <span>{filteredTodos.length} items left</span>
         <span className="clear" onClick={handleFilterActiveTodos}>

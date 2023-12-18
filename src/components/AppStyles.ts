@@ -7,6 +7,11 @@ export const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  .maxLengthMessage {
+    color: red;
+    padding-left: 15px;
+  }
 `;
 
 export const StyledForm = styled.form`
@@ -45,6 +50,7 @@ export const TodoDiv = styled.div`
   button {
     border: none;
     background-color: hsl(0, 0%, 98%);
+    margin-left: 10px;
   }
 `;
 
