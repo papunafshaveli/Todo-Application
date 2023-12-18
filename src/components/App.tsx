@@ -10,12 +10,13 @@ import {
   TodosContainer,
 } from "./AppStyles";
 import Header from "./Header/Header";
+import useLocalStorage from "./hooks/UseLocalStorage";
 
 function App() {
   const [inputText, setInputText] = useState("");
-  const [todosArr, setTodosArr] = useState<
-    { text: string; completed: boolean }[] | []
-  >([]);
+  const [todosArr, setTodosArr] = useLocalStorage<
+    { text: string; completed: boolean }[]
+  >("todos", []);
 
   const [filteredTodos, setFilteredTodos] = useState<
     { text: string; completed: boolean }[] | []
