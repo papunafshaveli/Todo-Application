@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const AppContainer = styled.div`
   min-width: 375px;
-  max-width: 768px;
+  max-width: 568px;
   padding: 3rem;
 
   display: flex;
