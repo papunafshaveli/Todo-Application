@@ -5,8 +5,8 @@ import {
   CheckTodo,
   StyledFooter,
   StyledForm,
-  TodoDiv,
   TodoInfo,
+  TodoList,
   TodosContainer,
 } from "./AppStyles";
 import Header from "./Header/Header";
@@ -72,11 +72,14 @@ function App() {
       : "hsl(235, 52.94117647058824%, 13.333333333333334%)";
   }, [themes]);
 
+  window.getTodosArr = () => todosArr;
+
   return (
     <AppContainer>
       <Header themes={themes} setThemes={setThemes} />
       <StyledForm onSubmit={(e) => handleAddTodo(e)}>
         <input
+          data-testid="todo-input"
           type="text"
           value={inputText}
           placeholder="Create a new todo"
@@ -85,7 +88,7 @@ function App() {
       </StyledForm>
       <TodosContainer>
         {filteredTodos.map((todo, index) => (
-          <TodoDiv key={index}>
+          <TodoList key={index} data-testid="todo-list">
             <CheckTodo
               completed={todo.completed}
               onClick={() => handleOutlineComplated(index)}
@@ -98,15 +101,21 @@ function App() {
             <button onClick={() => handleDelete(index)}>
               <img src="./resources/icon-cross.svg" alt="" />
             </button>
-          </TodoDiv>
+          </TodoList>
         ))}
       </TodosContainer>
       <p className="maxLengthMessage">
         {inputText.length > 30 && maxLengthMessage}
       </p>
       <TodoInfo>
-        <span>All items - {filteredTodos.length}</span>
-        <span className="clear" onClick={() => setTodosArr([])}>
+        <span data-testid="all-items-text">
+          All items - {filteredTodos.length}
+        </span>
+        <span
+          data-testid="clear-all"
+          className="clear"
+          onClick={() => setTodosArr([])}
+        >
           Clear All
         </span>
       </TodoInfo>

@@ -43,7 +43,7 @@ export const TodosContainer = styled.div`
   padding: 15px;
 `;
 
-export const TodoDiv = styled.div`
+export const TodoList = styled.ul`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
