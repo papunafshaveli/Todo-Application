@@ -13,6 +13,19 @@ test.describe("Todo page", () => {
     await expect(page.getByRole("button", { name: "Completed" })).toBeVisible();
   });
 
+  test("Empty State visibility testing", async ({ page }) => {
+    await page.goto("http://localhost:5173");
+    const emptyState = await page.getByTestId("empty-state");
+
+    const todosArrLength = await page.evaluate(() => {
+      return window.getTodosArr().length;
+    });
+
+    expect(todosArrLength).toBe(0);
+
+    await expect(emptyState).not.toBeVisible();
+  });
+
   test("Todo input testing", async ({ page }) => {
     await page.goto("http://localhost:5173");
     const todoInput = page.getByTestId("todo-input");

@@ -8,9 +8,10 @@ import {
   TodoInfo,
   TodoList,
   TodosContainer,
-} from "./AppStyles";
+} from "./styles";
 import Header from "./Header/Header";
 import useLocalStorage from "./hooks/useLocalStorage";
+import EmptyState from "./EmptyState/EmptyState";
 
 function App() {
   const [inputText, setInputText] = useState("");
@@ -87,22 +88,30 @@ function App() {
         />
       </StyledForm>
       <TodosContainer>
-        {filteredTodos.map((todo, index) => (
-          <TodoList key={index} data-testid="todo-list">
-            <CheckTodo
-              completed={todo.completed}
-              onClick={() => handleOutlineComplated(index)}
-            >
-              <div>
-                <img src="./resources/icon-check.svg" alt="" />
-              </div>
-              <p>{todo.text}</p>
-            </CheckTodo>
-            <button onClick={() => handleDelete(index)}>
-              <img src="./resources/icon-cross.svg" alt="" />
-            </button>
-          </TodoList>
-        ))}
+        {filteredTodos.length > 0 ? (
+          filteredTodos.map((todo, index) => (
+            <TodoList key={index} data-testid="todo-list">
+              <CheckTodo
+                completed={todo.completed}
+                onClick={() => handleOutlineComplated(index)}
+              >
+                <div>
+                  <img src="./resources/icon-check.svg" alt="" />
+                </div>
+                <p>{todo.text}</p>
+              </CheckTodo>
+              <button onClick={() => handleDelete(index)}>
+                <img src="./resources/icon-cross.svg" alt="" />
+              </button>
+            </TodoList>
+          ))
+        ) : (
+          <EmptyState
+            data-testid="empty-state"
+            title="There is no any Todos yet!"
+            img={"./resources/DesertedIcon.png"}
+          />
+        )}
       </TodosContainer>
       <p className="maxLengthMessage">
         {inputText.length > 30 && maxLengthMessage}
